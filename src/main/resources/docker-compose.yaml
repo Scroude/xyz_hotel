@@ -1,0 +1,27 @@
+version: "3.1"
+
+services:
+  #MySQL container
+  mysql:
+    container_name: mysql-container
+    image: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=NN3mcg
+      - MYSQL_DATABASE=xyz_hotel
+    networks:
+      - local-network
+  #PHPMyAdmin Container
+  phpmyadmin:
+    container_name: phpmyadmin-container
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_HOST=mysql-container
+    networks:
+      - local-network
+networks:
+  local-network:
