@@ -1,8 +1,6 @@
-package com.example.xyz_hotel.domain.reservation;
+package com.example.xyz_hotel.domain;
 
-import com.example.xyz_hotel.domain.user.User;
 import jakarta.persistence.*;
-
 import java.util.Date;
 
 @Entity
@@ -12,7 +10,7 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_user", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
     @Column(nullable = false)
     private Double price;
@@ -23,19 +21,6 @@ public class Reservation {
 
     public Reservation() {
     }
-    public Reservation(Long id, Boolean isHalfed) {
-        this.id = id;
-        this.isHalfed = isHalfed;
-    }
-
-    public Reservation(Long id, User user, Double price, Date date, Boolean isHalfed) {
-        this.id = id;
-        this.user = user;
-        this.price = price;
-        this.date = date;
-        this.isHalfed = isHalfed;
-    }
-
     public Long getId() {
         return id;
     }
@@ -60,19 +45,19 @@ public class Reservation {
         this.price = price;
     }
 
-    public Boolean getHalfed() {
-        return isHalfed;
-    }
-
-    public void setHalfed(Boolean halfed) {
-        isHalfed = halfed;
-    }
-
     public Date getDate() {
         return date;
     }
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Boolean getHalfed() {
+        return isHalfed;
+    }
+
+    public void setHalfed(Boolean halfed) {
+        isHalfed = halfed;
     }
 }

@@ -1,48 +1,14 @@
-package com.example.xyz_hotel.domain.user;
+package com.example.xyz_hotel.application;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "user")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UserRequest {
     private Long id;
-    @Column(length = 30)
     private String lastName;
-    @Column(length = 30)
     private String firstName;
-    @Column(unique = true, nullable = false)
     private String email;
-    @Column(length = 10)
     private String phone;
-    @Column(nullable = false)
     private String password;
 
-    public User() {
-    }
-
-    public User(Long id) {
-        this.id = id;
-    }
-
-    public User(Long id, String password) {
-        this.id = id;
-        this.password = password;
-    }
-
-    public User(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
-
-    public User(Long id, String lastName, String firstName, String email, String phone, String password) {
-        this.id = id;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.email = email;
-        this.phone = phone;
-        this.password = password;
+    public UserRequest() {
     }
 
     public Long getId() {

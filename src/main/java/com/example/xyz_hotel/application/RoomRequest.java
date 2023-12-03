@@ -1,29 +1,17 @@
-package com.example.xyz_hotel.domain.room;
+package com.example.xyz_hotel.application;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "room")
-public class Room {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class RoomRequest {
     private Long id;
-    @Column(nullable = false, length = 50)
     private String bed;
-    @Column(nullable = false)
     private Boolean wifi;
-    @Column(nullable = false, length = 50)
     private String tv;
-    @Column(nullable = false)
     private Boolean minibar;
-    @Column(nullable = false)
-    private Boolean air_conditionner;
-    @Column(nullable = false)
+    private Boolean airConditionner;
     private Boolean bathtub;
-    @Column(nullable = false)
     private Boolean terrace;
-    @Column(nullable = false)
     private Double price;
+    public RoomRequest() {
+    }
 
     public Long getId() {
         return id;
@@ -65,12 +53,12 @@ public class Room {
         this.minibar = minibar;
     }
 
-    public Boolean getAir_conditionner() {
-        return air_conditionner;
+    public Boolean getAirConditionner() {
+        return airConditionner;
     }
 
-    public void setAir_conditionner(Boolean air_conditionner) {
-        this.air_conditionner = air_conditionner;
+    public void setAirConditionner(Boolean airConditionner) {
+        this.airConditionner = airConditionner;
     }
 
     public Boolean getBathtub() {

@@ -1,9 +1,6 @@
-package com.example.xyz_hotel.domain.payment;
+package com.example.xyz_hotel.domain;
 
-import com.example.xyz_hotel.domain.reservation.Reservation;
-import com.example.xyz_hotel.domain.wallet.Wallet;
 import jakarta.persistence.*;
-import org.hibernate.annotations.ManyToAny;
 
 @Entity
 @Table(name = "payment")
@@ -11,22 +8,15 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_reservation", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "reservation_id", referencedColumnName = "id")
     private Reservation reservation;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_wallet", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "wallet_id", referencedColumnName = "id", nullable = false)
     private Wallet wallet;
     private Double amount;
 
     public Payment() {}
-
-    public Payment(Long id, Reservation reservation, Wallet wallet, Double amount) {
-        this.id = id;
-        this.reservation = reservation;
-        this.wallet = wallet;
-        this.amount = amount;
-    }
 
     public Long getId() {
         return id;
@@ -35,6 +25,7 @@ public class Payment {
     public void setId(Long id) {
         this.id = id;
     }
+
 
     public Reservation getReservation() {
         return reservation;

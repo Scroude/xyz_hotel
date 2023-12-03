@@ -1,4 +1,4 @@
-package com.example.xyz_hotel.domain.user;
+package com.example.xyz_hotel.application;
 
 public class ChangeUserPassword {
     private Long id;

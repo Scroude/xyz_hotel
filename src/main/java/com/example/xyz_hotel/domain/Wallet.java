@@ -1,6 +1,5 @@
-package com.example.xyz_hotel.domain.wallet;
+package com.example.xyz_hotel.domain;
 
-import com.example.xyz_hotel.domain.user.User;
 import jakarta.persistence.*;
 
 @Entity
