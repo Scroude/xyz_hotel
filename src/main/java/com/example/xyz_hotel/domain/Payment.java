@@ -8,13 +8,16 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "reservation_id", referencedColumnName = "id")
     private Reservation reservation;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "wallet_id", referencedColumnName = "id", nullable = false)
     private Wallet wallet;
-    private Double amount;
+    private double amount;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "currency_id", referencedColumnName = "id", nullable = false)
+    private Currency currency;
 
     public Payment() {}
 
@@ -43,11 +46,19 @@ public class Payment {
         this.wallet = wallet;
     }
 
-    public Double getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
     }
 }

@@ -8,6 +8,7 @@ public class PaymentRequest {
     private Long reservationId;
     private Long walletId;
     private Double amount;
+    private Long currencyId;
 
     public PaymentRequest() {
     }
@@ -24,7 +25,7 @@ public class PaymentRequest {
         return reservationId;
     }
 
-    public void setReservation(Long reservationId) {
+    public void setReservationId(Long reservationId) {
         this.reservationId = reservationId;
     }
 
@@ -42,5 +43,13 @@ public class PaymentRequest {
 
     public void setAmount(Double amount) {
         this.amount = amount;
+    }
+
+    public Long getCurrencyId() {
+        return currencyId;
+    }
+
+    public void setCurrencyId(Long currencyId) {
+        this.currencyId = currencyId;
     }
 }

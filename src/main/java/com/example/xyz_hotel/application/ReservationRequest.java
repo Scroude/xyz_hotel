@@ -1,6 +1,9 @@
 package com.example.xyz_hotel.application;
 
+import com.example.xyz_hotel.domain.Room;
+
 import java.util.Date;
+import java.util.List;
 
 public class ReservationRequest {
     private Long id;
@@ -8,7 +11,7 @@ public class ReservationRequest {
     private Double price;
     private Date date;
     private Boolean isHalfed;
-
+    private List<Room> rooms;
     public ReservationRequest() {
     }
 
@@ -50,5 +53,13 @@ public class ReservationRequest {
 
     public void setHalfed(Boolean halfed) {
         isHalfed = halfed;
+    }
+
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
     }
 }

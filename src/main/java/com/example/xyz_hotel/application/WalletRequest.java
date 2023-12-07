@@ -3,8 +3,8 @@ package com.example.xyz_hotel.application;
 public class WalletRequest {
     private Long id;
     private Long userId;
-    private Double amount;
-    private String currency;
+    private double amount;
+    private Long currencyId;
 
     public Long getId() {
         return id;
@@ -30,11 +30,11 @@ public class WalletRequest {
         this.amount = amount;
     }
 
-    public String getCurrency() {
-        return currency;
+    public Long getCurrencyId() {
+        return currencyId;
     }
 
-    public void setCurrency(String currency) {
-        this.currency = currency;
+    public void setCurrencyId(Long currencyId) {
+        this.currencyId = currencyId;
     }
 }

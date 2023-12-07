@@ -12,22 +12,9 @@ public class Wallet {
     @JoinColumn(name = "id_user", referencedColumnName = "id", nullable = false)
     private User user;
     @Column(nullable = false)
-    private Double amount;
-    @Column(nullable = false)
-    private String currency;
+    private double amount;
 
-    public Wallet() {
-    }
-    public Wallet(Long id) {
-        this.id = id;
-    }
-
-    public Wallet(Long id, User user, Double amount, String currency) {
-        this.id = id;
-        this.user = user;
-        this.amount = amount;
-        this.currency = currency;
-    }
+    public Wallet() {}
 
     public Long getId() {
         return id;
@@ -51,13 +38,5 @@ public class Wallet {
 
     public void setAmount(Double amount) {
         this.amount = amount;
-    }
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
     }
 }

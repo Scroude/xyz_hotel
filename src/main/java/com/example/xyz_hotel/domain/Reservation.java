@@ -1,7 +1,8 @@
 package com.example.xyz_hotel.domain;
 
 import jakarta.persistence.*;
-import java.util.Date;
+
+import java.util.*;
 
 @Entity
 @Table(name = "reservation")
@@ -18,6 +19,10 @@ public class Reservation {
     private Date date;
     @Column(name = "is_halfed", nullable = false)
     private Boolean isHalfed;
+    @Column(nullable = false)
+    private Boolean isComplete;
+    @Column(nullable = false)
+    private List<Room> rooms;
 
     public Reservation() {
     }
@@ -59,5 +64,21 @@ public class Reservation {
 
     public void setHalfed(Boolean halfed) {
         isHalfed = halfed;
+    }
+
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
+    }
+
+    public Boolean getComplete() {
+        return isComplete;
+    }
+
+    public void setComplete(Boolean complete) {
+        isComplete = complete;
     }
 }
