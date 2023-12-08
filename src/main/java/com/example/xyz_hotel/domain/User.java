@@ -28,7 +28,7 @@ public class User {
         this.firstName = userRequest.getFirstName();
         this.email = userRequest.getEmail();
         this.phone = userRequest.getPhone();
-        this.password = userRequest.getPassword();
+        this.password = userRequest.getNewPassword();
     }
 
     public Long getId() {

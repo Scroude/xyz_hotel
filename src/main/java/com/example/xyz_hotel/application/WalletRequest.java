@@ -4,7 +4,6 @@ public class WalletRequest {
     private Long id;
     private Long userId;
     private double amount;
-    private Long currencyId;
 
     public Long getId() {
         return id;
@@ -28,13 +27,5 @@ public class WalletRequest {
 
     public void setAmount(Double amount) {
         this.amount = amount;
-    }
-
-    public Long getCurrencyId() {
-        return currencyId;
-    }
-
-    public void setCurrencyId(Long currencyId) {
-        this.currencyId = currencyId;
     }
 }

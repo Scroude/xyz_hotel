@@ -13,7 +13,6 @@ import com.example.xyz_hotel.exeption.not_found.PaymentNotFoundException;
 import com.example.xyz_hotel.exeption.not_found.ReservationNotFoundException;
 import com.example.xyz_hotel.exeption.not_found.WalletNotFoundException;
 import com.example.xyz_hotel.exeption.nulls.NullCurrencyException;
-import com.example.xyz_hotel.exeption.nulls.NullReservationException;
 import com.example.xyz_hotel.exeption.nulls.NullWalletException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -80,7 +79,7 @@ public class PaymentController {
         wallet.setAmount(round(wallet.getAmount() + paymentRequest.getAmount(), 2));
         walletRepository.save(wallet);
 
-        return new ResponseEntity<>(payment, HttpStatus.OK);
+        return new ResponseEntity<>(payment, HttpStatus.CREATED);
     }
 
     //Afficher les paiements d'un utilisateur

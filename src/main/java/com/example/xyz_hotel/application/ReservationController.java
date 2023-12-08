@@ -66,20 +66,24 @@ public class ReservationController {
         reservation.setRooms(reservationRequest.getRooms());
 
         // Récupératon du wallet
-        Wallet wallet = walletRepository.findWalletByUserId(reservation.getUser().getId())
+        Wallet wallet = walletRepository.findWalletByUserId(reservationRequest.getUserId())
                 .orElseThrow(WalletNotFoundException::new);
 
         //L'utilisateur paye la moitié
-        PaymentRequest paymentRequest = new PaymentRequest();
-        paymentRequest.setAmount(round(reservation.getPrice() / -2, 2));
-        paymentRequest.setWalletId(wallet.getId());
-        paymentRequest.setReservationId(reservation.getId());
-        paymentRequest.setCurrencyId(1L);
-        paymentController.addPayment(paymentRequest);
-        reservation.setHalfed(true);
+        if (wallet.getAmount() + (reservationRequest.getPrice() / -2) > 0) {
+            reservation.setHalfed(true);
+            reservation = reservationRepository.saveAndFlush(reservation);
+            PaymentRequest paymentRequest = new PaymentRequest();
+            paymentRequest.setAmount(round(reservation.getPrice() / -2, 2));
+            paymentRequest.setWalletId(wallet.getId());
+            paymentRequest.setReservationId(reservation.getId());
+            paymentRequest.setCurrencyId(1L);
+            paymentController.addPayment(paymentRequest);
 
-        reservationRepository.save(reservation);
-        return new ResponseEntity<>(reservation, HttpStatus.CREATED);
+            return new ResponseEntity<>(reservation, HttpStatus.CREATED);
+        } else {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Unsufficient balance");
+        }
     }
 
     //Mettre à jour une réservation

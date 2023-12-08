@@ -1,0 +1,80 @@
+### CurrencyRoute
+
+###
+# @name add
+POST localhost:8081/api/currency/add
+Content-Type: application/json
+
+
+[
+  {
+    "currency": "Euro",
+    "percentage": 1,
+    "invPercentage": 1
+  },
+  {
+    "currency": "Dollar",
+    "percentage": 1.078060,
+    "invPercentage": 0.927592
+  },
+  {
+    "currency": "Livre Sterling",
+    "percentage": 0.856318,
+    "invPercentage": 1.167790
+  },
+  {
+    "currency": "Yen",
+    "percentage": 158.749069,
+    "invPercentage": 0.006299
+  },
+  {
+    "currency": "Franc Suisse",
+    "percentage": 0.943143,
+    "invPercentage": 1.060285
+  }
+]
+
+### UserRoute
+
+###
+# @name register
+POST localhost:8081/api/user/register
+Content-Type: application/json
+
+{
+  "lastName": "test",
+  "firstName": "test",
+  "email": "test@test.com",
+  "phone": "+33 7 81 88 19 11",
+  "newPassword": "@Test1"
+}
+
+### PaymentRoute
+
+###
+# @name add
+POST localhost:8081/api/payment/add
+Content-Type: application/json
+
+{
+  "walletId": 1,
+  "currencyId": 1,
+  "amount": 1000
+}
+
+### ReservationRoute
+
+###
+# @name add
+POST localhost:8081/api/reservation/add
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "date": "2001-05-25",
+  "price": 200,
+  "rooms": [
+    "STANDARD",
+    "SUPERIOR"
+  ]
+}

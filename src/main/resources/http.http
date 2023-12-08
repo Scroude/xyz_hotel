@@ -1,0 +1,146 @@
+# CurrencyRoute
+
+###
+# @name add
+POST localhost:8081/api/currency/add
+Content-Type: application/json
+
+
+[
+  {
+    "currency": "Euro",
+    "percentage": 1,
+    "invPercentage": 1
+  },
+  {
+    "currency": "Dollar",
+    "percentage": 1.078060,
+    "invPercentage": 0.927592
+  },
+  {
+    "currency": "Livre Sterling",
+    "percentage": 0.856318,
+    "invPercentage": 1.167790
+  },
+  {
+    "currency": "Yen",
+    "percentage": 158.749069,
+    "invPercentage": 0.006299
+  },
+  {
+    "currency": "Franc Suisse",
+    "percentage": 0.943143,
+    "invPercentage": 1.060285
+  }
+]
+
+
+###
+# @name all
+GET localhost:8081/api/currency/all
+
+### PaymentRoute
+
+###
+# @name add
+POST localhost:8081/api/payment/add
+Content-Type: application/json
+
+{
+  "walletId": 1,
+  "currencyId": 1,
+  "amount": 1.35
+}
+
+###
+# @name all
+GET localhost:8081/api/payment/1/all
+
+### ReservationRoute
+
+###
+# @name add
+POST localhost:8081/api/reservation/add
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "date": "2001-05-25",
+  "price": 200,
+  "rooms": [
+    "STANDARD",
+    "SUPERIOR"
+  ]
+}
+
+###
+# @name userReservation
+GET localhost:8081/api/reservation/1/all
+
+###
+# @name update
+PUT localhost:8081/api/reservation/3/update
+
+###
+# @name delete
+DELETE localhost:8081/api/reservation/4/delete
+
+### UserRoute
+
+###
+# @name register
+POST localhost:8081/api/user/register
+Content-Type: application/json
+
+{
+  "lastName": "test",
+  "firstName": "test",
+  "email": "test@test.com",
+  "phone": "+33 7 81 88 19 11",
+  "newPassword": "@Test1"
+}
+
+###
+# @name login
+GET localhost:8081/api/user/login?
+    email=test@test.com&
+    password=@Test1
+
+###
+# @name info
+GET localhost:8081/api/user/1
+#id: 1
+
+###
+# @name delete
+DELETE localhost:8081/api/user/delete/1
+
+###
+# @name update
+PUT localhost:8081/api/user/update
+Content-Type: application/json
+
+{
+  "id": 1,
+  "firstName": "test1",
+  "lastName": "test1",
+  "email": "test1@test.com",
+  "phone": "+33 7 81 88 19 11"
+}
+
+###
+# @name updatePassword
+PUT localhost:8081/api/user/updatePassword
+Content-Type: application/json
+
+{
+  "id": 1,
+  "password": "@a",
+  "newPassword": "a"
+}
+
+### WalletRoute
+
+###
+# @name info
+GET localhost:8081/api/wallet/1
