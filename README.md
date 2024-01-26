@@ -1,5 +1,6 @@
 # XYZ_Hotel
 **API** of a reservation system for a hotel.
+The API uses **Jave 21**
 # Setup the project
 ## Open the project
 Open the project in your **IDE**.
