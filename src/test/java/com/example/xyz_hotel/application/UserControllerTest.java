@@ -114,14 +114,14 @@ public class UserControllerTest {
         when(userRepository.existsById(anyLong())).thenReturn(true);
         when(walletRepository.findWalletByUserId(anyLong())).thenReturn(Optional.of(wallet));
 
-        mockMvc.perform(delete("/api/user/delete/1"))
+        mockMvc.perform(delete("/api/user/1/delete"))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void updateUser_Success() throws Exception {
         UserRequest userRequest = new UserRequest();
-        userRequest.setId(1L);
+        userRequest.setId("1");
         userRequest.setFirstName("UpdatedTest");
         userRequest.setLastName("UpdatedUser");
         userRequest.setEmail("updated@test.com");
@@ -147,7 +147,7 @@ public class UserControllerTest {
     @Test
     public void updateUserPassword_Success() throws Exception {
         UserRequest userRequest = new UserRequest();
-        userRequest.setId(1L);
+        userRequest.setId("1");
         userRequest.setPassword("Test1@");
         userRequest.setNewPassword("Test2@");
 

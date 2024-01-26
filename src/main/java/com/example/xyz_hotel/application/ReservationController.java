@@ -112,17 +112,17 @@ public class ReservationController {
         return new ResponseEntity<>(reservation, HttpStatus.OK);
     }
 
-    //Supprimer une réservation
-    @DeleteMapping(path = "/{reservationId}/delete")
-    public @ResponseBody ResponseEntity<HttpStatus> deleteReservation(@PathVariable Long reservationId) {
+    //Annuler une réservation
+    @PutMapping(path = "/{reservationId}/cancel")
+    public @ResponseBody ResponseEntity<Reservation> deleteReservation(@PathVariable Long reservationId) {
         //Récupération de la réservation
         if (reservationId == null) throw new NullReservationException();
         Reservation reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(ReservationNotFoundException::new );
 
-        //Remboursement si nécessaire
-        if (reservation.getHalfed() && !reservation.getComplete()) {
-            //On récupère le wallet
+        //Refund if necessary
+        if (reservation.getHalfed() && !reservation.getComplete()) { //Half
+            //Get the wallet
             Wallet wallet = walletRepository.findWalletByUserId(reservation.getUser().getId())
                     .orElseThrow(WalletNotFoundException::new);
 
@@ -132,7 +132,8 @@ public class ReservationController {
             paymentRequest.setReservationId(reservation.getId());
             paymentRequest.setCurrencyId(1L);
             paymentController.addPayment(paymentRequest);
-        } else if (reservation.getComplete() && reservation.getHalfed()) {
+            reservation.setHalfed(false);
+        } else if (reservation.getComplete() && reservation.getHalfed()) { //Full
             //On récupère le wallet
             Wallet wallet = walletRepository.findWalletByUserId(reservation.getUser().getId())
                     .orElseThrow(WalletNotFoundException::new);
@@ -143,14 +144,12 @@ public class ReservationController {
             paymentRequest.setReservationId(reservation.getId());
             paymentRequest.setCurrencyId(1L);
             paymentController.addPayment(paymentRequest);
+            reservation.setHalfed(false);
+            reservation.setComplete(false);
         }
 
-        if (reservationRepository.existsById(reservationId)) {
-            reservationRepository.deleteById(reservationId);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            throw new ReservationNotFoundException();
-        }
+        reservationRepository.save(reservation);
+        return new ResponseEntity<>(reservation, HttpStatus.OK);
     }
 
     public static double round(double value, int places) {

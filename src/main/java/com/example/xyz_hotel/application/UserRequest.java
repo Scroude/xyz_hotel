@@ -3,7 +3,7 @@ package com.example.xyz_hotel.application;
 import java.util.regex.Pattern;
 
 public class UserRequest {
-    private Long id;
+    private String id;
     private String lastName;
     private String firstName;
     private String email;
@@ -14,11 +14,11 @@ public class UserRequest {
     public UserRequest() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

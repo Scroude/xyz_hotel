@@ -1,15 +1,15 @@
 package com.example.xyz_hotel.application;
 
 public class WalletRequest {
-    private Long id;
+    private String id;
     private Long userId;
     private double amount;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

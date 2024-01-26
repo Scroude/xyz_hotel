@@ -45,41 +45,41 @@ public class UserController {
     }
 
     //Login
-    @GetMapping(path = "/login")
-    public @ResponseBody ResponseEntity<User> getUser(@RequestParam String email, @RequestParam String password) {
+    @PostMapping(path = "/login")
+    public @ResponseBody ResponseEntity<String> getUser(@RequestBody UserRequest userRequest) {
         //Check the data
-        if (email == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email can not be null");
-        if (password == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password can not be null");
+        if (userRequest.getEmail() == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email can not be null");
+        if (userRequest.getPassword() == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password can not be null");
 
         //Get the user
-        User user = userRepository.findUserByEmailAndPassword(email, password)
+        User user = userRepository.findUserByEmailAndPassword(userRequest.getEmail(), userRequest.getPassword())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Wrong login information"));
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(user.getId().toString(), HttpStatus.OK);
     }
 
     //Get users infos
-    @GetMapping(path = "/{id}")
-    public @ResponseBody ResponseEntity<User> getUserInfo(@PathVariable Long id) {
+    @GetMapping(path = "/{userId}")
+    public @ResponseBody ResponseEntity<User> getUserInfo(@PathVariable Long userId) {
         //Check the data
-        if (id == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User id can not be null");
+        if (userId == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User id can not be null");
 
         //Get the user
-        User user = userRepository.findById(id)
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
         user.setPassword("");
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     //Delete user
-    @DeleteMapping(path = "/delete/{id}")
-    public @ResponseBody ResponseEntity<HttpStatus> deleteUser(@PathVariable Long id) {
+    @DeleteMapping(path = "/{userId}/delete")
+    public @ResponseBody ResponseEntity<HttpStatus> deleteUser(@PathVariable Long userId) {
 
-        if (userRepository.existsById(id)) {
+        if (userRepository.existsById(userId)) {
             //Récupération et suppression du wallet
-            Wallet wallet = walletRepository.findWalletByUserId(id)
+            Wallet wallet = walletRepository.findWalletByUserId(userId)
                     .orElseThrow(WalletNotFoundException::new);
             walletRepository.deleteById(wallet.getId());
-            userRepository.deleteById(id);
+            userRepository.deleteById(userId);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             throw new UserNotFoundException();
@@ -88,7 +88,7 @@ public class UserController {
 
     //Update user
     @PutMapping(path ="/update")
-    public @ResponseBody ResponseEntity<User> updateUser(@RequestBody UserRequest userRequest) {
+    public @ResponseBody ResponseEntity<Boolean> updateUser(@RequestBody UserRequest userRequest) {
         //Check the data
         if (userRequest.getId() == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User id can not be null");
         if (!userRequest.checkLastName() && userRequest.getLastName() == null) throw new ResponseStatusException(HttpStatus.FORBIDDEN, "LastName doesn't match requirement");
@@ -97,7 +97,7 @@ public class UserController {
         if (!userRequest.checkPhone() && userRequest.getPhone() == null) throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Phone doesn't match requirement");
 
         //Get the user
-        User user = userRepository.findById(userRequest.getId())
+        User user = userRepository.findById(Long.parseLong(userRequest.getId()))
                 .orElseThrow(UserNotFoundException::new);
 
         //Saving information
@@ -106,7 +106,7 @@ public class UserController {
         user.setFirstName(userRequest.getFirstName());
         user.setPhone(userRequest.getPhone());
         userRepository.save(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     //Update users password
@@ -118,7 +118,7 @@ public class UserController {
         if (userRequest.getNewPassword() == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "New password is null");
 
         //Check the old password by getting the user
-        User user = userRepository.findUserByIdAndPassword(userRequest.getId(), userRequest.getPassword())
+        User user = userRepository.findUserByIdAndPassword(Long.parseLong(userRequest.getId()), userRequest.getPassword())
                 .orElseThrow(UserNotFoundException::new);
 
         //Check the new password

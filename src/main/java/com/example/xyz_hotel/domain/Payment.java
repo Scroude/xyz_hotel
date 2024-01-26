@@ -14,6 +14,8 @@ public class Payment {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "wallet_id", referencedColumnName = "id", nullable = false)
     private Wallet wallet;
+
+    @Column(nullable = false)
     private double amount;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "currency_id", referencedColumnName = "id", nullable = false)

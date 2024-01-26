@@ -41,7 +41,7 @@ public class PaymentController {
 
     //Créer un paiement
     @PostMapping(path = "/add")
-    public @ResponseBody ResponseEntity<Payment> addPayment(@RequestBody PaymentRequest paymentRequest) {
+    public @ResponseBody ResponseEntity<Boolean> addPayment(@RequestBody PaymentRequest paymentRequest) {
         Payment payment = new Payment();
 
         //Récupération de la réservation
@@ -79,7 +79,7 @@ public class PaymentController {
         wallet.setAmount(round(wallet.getAmount() + paymentRequest.getAmount(), 2));
         walletRepository.save(wallet);
 
-        return new ResponseEntity<>(payment, HttpStatus.CREATED);
+        return new ResponseEntity<>(true, HttpStatus.CREATED);
     }
 
     //Afficher les paiements d'un utilisateur

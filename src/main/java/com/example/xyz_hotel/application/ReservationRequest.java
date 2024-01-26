@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 public class ReservationRequest {
-    private Long id;
+    private String id;
     private Long userId;
     private Double price;
     private Date date;
@@ -15,11 +15,11 @@ public class ReservationRequest {
     public ReservationRequest() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

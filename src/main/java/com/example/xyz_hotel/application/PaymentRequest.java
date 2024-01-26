@@ -4,7 +4,7 @@ import com.example.xyz_hotel.domain.Reservation;
 
 
 public class PaymentRequest {
-    private Long id;
+    private String id;
     private Long reservationId;
     private Long walletId;
     private Double amount;
@@ -13,11 +13,11 @@ public class PaymentRequest {
     public PaymentRequest() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
