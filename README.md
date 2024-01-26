@@ -16,6 +16,7 @@ Run the **XyzHotelApplication.java**.
 # Use the API Endpoints 
 
 Go to the [SwaggerUI](http://localhost:8081/swagger-ui/index.html) to see all the endpoints.
+Or go to [Front](http://localhost:8081/index.html) 
 ## List of all the endpoints
 | Endpoints | Description  | Type |
 |--|--|--|
