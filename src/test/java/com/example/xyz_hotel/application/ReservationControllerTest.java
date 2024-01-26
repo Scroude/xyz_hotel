@@ -127,7 +127,7 @@ public class ReservationControllerTest {
     public void addReservation_success() throws Exception {
         // Arrange
         ReservationRequest reservationRequest = new ReservationRequest();
-        reservationRequest.setUserId(1L);
+        reservationRequest.setUserId("1");
         reservationRequest.setDate(new Date("2001-05-25"));
         reservationRequest.setPrice(150.00);
         List<Room> rooms = new ArrayList<>();

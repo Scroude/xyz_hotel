@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ReservationRequest {
     private String id;
-    private Long userId;
+    private String userId;
     private Double price;
     private Date date;
     private Boolean isHalfed;
@@ -23,11 +23,11 @@ public class ReservationRequest {
         this.id = id;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

@@ -54,7 +54,7 @@ public class ReservationController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Date or price or rooms can not be null");
 
         //Récupération de l'utilisateur
-        User user = userRepository.findById(reservationRequest.getUserId())
+        User user = userRepository.findById(Long.parseLong(reservationRequest.getUserId()))
                 .orElseThrow(UserNotFoundException::new);
 
         //Création de la réservation
@@ -66,7 +66,7 @@ public class ReservationController {
         reservation.setRooms(reservationRequest.getRooms());
 
         // Récupératon du wallet
-        Wallet wallet = walletRepository.findWalletByUserId(reservationRequest.getUserId())
+        Wallet wallet = walletRepository.findWalletByUserId(Long.parseLong(reservationRequest.getUserId()))
                 .orElseThrow(WalletNotFoundException::new);
 
         //L'utilisateur paye la moitié
